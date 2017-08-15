@@ -122,7 +122,7 @@ var mid = require('../middleware');
 
 // PUT lists
 	router.put('/lists',function(req,res,next){
-		//console.log(req.body);
+		console.log(req.body);
 		List.findOne({_id:req.body._id})
 		.exec(function(err,list){
 			if(err) return next(err);

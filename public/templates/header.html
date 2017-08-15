@@ -1,13 +1,4 @@
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    
-  </head>
-  <body>
     <header class="container-fluid">
     	<nav class="container mb-5">
 			<ul class="nav">
@@ -24,11 +15,13 @@
 			  	<a class="nav-link" href="/my-quotes">My quotes</a>
 			  </li>
 			  <li ng-show="user" class="nav-item float-right">
-			  	<small>logged in as {{user.email}}</small><a class="nav-link" href="/logout">Logout</a>
+			  	<small class="hidden-sm-down">logged in as {{user.email}}</small><a class="nav-link" href="/logout">Logout</a>
 			  </li>
 			</ul>
 		</nav>
-		<div ng-show="warning && warning !== ''" class="alert alert-warning" role="alert">
-		  {{warning}}
+		<div ng-show="warning && warning !== ''" class="alert alert-warning py-1" role="alert">
+		  <p class="container mb-0">
+		  	{{warning}}
+		  </p>
 		</div>
 	</header>

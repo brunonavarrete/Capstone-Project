@@ -113,7 +113,7 @@
 				} else {
 					var category = quote.category;
 					var quoteText = quote.quote;
-					var quoteId = quote._id;
+					var quoteId = quote._quote_id;
 					var userLists = $scope.user.lists;
 					for (var i = 0; i < userLists.length; i++) {
 						if( userLists[i].category === category ){
@@ -130,7 +130,6 @@
 									}
 								}
 							});
-
 							var updatedList = {
 								_id: userLists[currentList]._id,
 								quotes: newQuoteArray
