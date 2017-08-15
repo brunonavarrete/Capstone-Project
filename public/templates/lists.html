@@ -2,9 +2,12 @@
   <div class="row px-5">
     <ul ng-repeat="list in user.lists" class="col-lg-4">
       <span class="btn">{{list.category}}</span>
-      <li ng-repeat="quote in list.quotes" class="card py-2 px-3 mb-3 text-justify">
+      <li ng-init="visible = true" ng-hide="!visible" ng-repeat="quote in list.quotes" class="card py-2 px-3 mb-3 text-justify">
         <blockquote>{{quote.quote}}</blockquote>
-        <em class="text-right">- {{quote.author}}</em>
+        <em class="text-right">
+          <button ng-click="visible = false; removeQuote(list.category,quote._quote_id,quote.quote)" class="btn btn-sm btn-outline-danger">X</button>
+          - {{quote.author}}
+        </em>
       </li>
     </ul>
   </div>

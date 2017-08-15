@@ -53,6 +53,7 @@ var mid = require('../middleware');
 		res.sendFile(path.join(__dirname + '/../public/profile.html'));
 	});
 
+// POST register, login
 	router.post('/login',function(req,res,next){
 		User.authenticate(req.body.email,req.body.password,function(err, user){
 	      if( err || !user ){
@@ -67,8 +68,6 @@ var mid = require('../middleware');
 	    });
 	});
 
-// POST
-
 	router.post('/register',function(req,res,next){
 		var user = req.body;
 		User.create(user,function(err,user){
@@ -80,6 +79,7 @@ var mid = require('../middleware');
 		});
 	});
 
+// POST quote/list
 	router.post('/quote',function(req,res,next){
 		if( req.session && req.session.userId ){
 			console.log(req.body);
@@ -90,29 +90,44 @@ var mid = require('../middleware');
 				List.findOne({user:req.session.userId,category:req.body.category})
 				.exec(function(err,list){
 					if(err) next(err);
-					if(!list){
-						req.body.quotes = [{
-							_quote_id: req.body._quote_id,
-							quote: req.body.quote,
-							author: req.body.author,
-							category: req.body.category
-						}];
-						List.create(req.body,function(err,list){
-							res.send(list);
-						})
-					} else {
-						var quotes = list.quotes;
-						quotes.push(req.body);
-						list.update({$set: { quotes: quotes }},function(){
-							res.send(list);
-						});
-						//console.log(list.quotes);
-					}
+					// create list if !exists
+						if(!list){
+							req.body.quotes = [{
+								_quote_id: req.body._quote_id,
+								quote: req.body.quote,
+								author: req.body.author,
+								category: req.body.category
+							}];
+							List.create(req.body,function(err,list){
+								res.send(list);
+							});
+					// save quote to list if exists
+						} else {
+							var quotes = list.quotes;
+							quotes.push(req.body);
+							list.update({$set: { quotes: quotes }},function(err,list){
+								if(err) return next(err);
+								res.send(list);
+							});
+						}
 				});
 		} else {
 			console.log('you must be logged in');
 			res.end();
 		}
+	});
+
+// PUT lists
+	router.put('/lists',function(req,res,next){
+		//console.log(req.body);
+		List.findOne({_id:req.body._id})
+		.exec(function(err,list){
+			if(err) return next(err);
+			list.update({$set: { quotes: req.body.quotes }},function(err,list){
+				if(err) return next(err);
+				res.send(list);
+			});
+		});
 	});
 
 module.exports = router;

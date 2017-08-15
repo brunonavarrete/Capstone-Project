@@ -2,7 +2,7 @@
   <div class="row">
     <div id="quote" class="col-12 col-md-6 offset-md-3">
       <blockquote class="px-3">
-        <form ng-submit="saveQuote(newQuote)">
+        <form ng-submit="updateQuote(newQuote)">
           <p class="text-justify">{{newQuote.quote}}
             <br><button ng-hide="newQuote == ''" type="submit" class="btn" ng-class="{'btn-warning':saved,'btn-outline-warning':!saved}">Star</button>
           </p>

@@ -9,6 +9,35 @@
 		this.getUser = function(callback){
 			$http.get('/user').then(callback);
 		}
+
+		this.removeQuote = function(lists,category,quoteId,quoteText,callback){
+			var userLists = lists;
+			for (var i = 0; i < userLists.length; i++) {
+				if( userLists[i].category === category ){
+					var currentList = i;
+					var quoteArray = userLists[currentList].quotes;
+					var newQuoteArray = quoteArray.filter(function(quote){
+						if( category === 'trump' ){
+							if( quote.quote !== quoteText ){
+								return quote;
+							}
+						} else {
+							if( quote._quote_id !== quoteId ){
+								return quote;
+							}
+						}
+					});
+
+					var updatedList = {
+						_id: userLists[currentList]._id,
+						quotes: newQuoteArray
+					}
+
+					return $http.put('/lists', updatedList);
+				}
+			}
+		};
+
 	});
 
 	module.controller('quotesCtrl',function($scope,$http,quoteService){
@@ -71,12 +100,10 @@
 			}
 		}
 
-		$scope.saveQuote = function(quote){
+		$scope.updateQuote = function(quote){
 			if( $scope.user ){
 				quote = $scope.newQuote;
-				$http.post('/quote', quote, function(){
-					console.log('hello from controller');
-				});
+				$http.post('/quote', quote);
 				$scope.warning = '';
 				$scope.saved = true;
 				quoteService.getUser(function(user){
@@ -92,6 +119,13 @@
 		quoteService.getUser(function(user){
 			$scope.user = user.data;
 		});
+
+		$scope.removeQuote = function(category,quoteId,quoteText){
+			quoteService.removeQuote( $scope.user.lists, category, quoteId, quoteText, function(){
+				console.log('removed!');
+			});
+		};
+
 	});
 
 	module.directive('quotes',function(){
