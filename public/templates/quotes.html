@@ -1,24 +1,19 @@
-<div>
+<div class="container">
   <div class="row">
     <div id="quote" class="col-12 col-md-6 offset-md-3">
       <blockquote class="px-3">
-        <form ng-submit="updateQuote(newQuote)">
-          <p class="text-justify">{{newQuote.quote}}
-            <br><button ng-hide="newQuote == ''" type="submit" class="btn" ng-class="{'btn-warning':saved,'btn-outline-warning':!saved}">Star</button>
-          </p>
-          <input type="hidden" name="quote" value="{{newQuote.quote}}">
-          <input type="hidden" name="author" value="{{newQuote.author}}">
-          <input type="hidden" name="id" value="{{newQuote.id}}">
-        </form>
+        <p class="text-justify">{{newQuote.quote}}
+          <button ng-click="updateQuote(newQuote)" ng-hide="newQuote == ''" type="submit" class="btn" ng-class="{'btn-warning':saved,'btn-outline-warning':!saved}">Star</button>
+        </p>
         <br><em class="float-right">{{newQuote.author}}</em>
       </blockquote>
     </div>
-  </div>
+  </div><!-- .row -->
   <div class="row">
-    <div class="col-12 col-md-6 offset-md-3 text-center">
+    <div class="col-12 text-center">
       <button class="btn btn-outline-primary mx-2" ng-click="getQuote('trump')">Trump it!</button>
       <button class="btn btn-outline-success mx-2" ng-click="getQuote('code')">Code</button>
       <button class="btn btn-outline-secondary mx-2" ng-click="getQuote('misc')">Misc</button>
     </div>
-  </div>
-</div>
+  </div><!-- .row -->
+</div><!-- .container -->

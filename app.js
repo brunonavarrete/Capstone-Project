@@ -29,12 +29,6 @@ var MongoStore = require('connect-mongo')(session); // connect-mongo will access
     })
   }));
 
-  // make user id available to templates
-    app.use(function(req,res,next){
-      res.locals.currentUser = req.session.userId; // will be undefined if user isn't logged in
-      next();
-    });
-
 //
   db.on('open',function(){
       console.log('connection opened');

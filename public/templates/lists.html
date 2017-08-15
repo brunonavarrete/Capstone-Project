@@ -1,6 +1,7 @@
-<div>
-  <div class="row px-5">
-    <ul ng-repeat="list in user.lists" class="col-lg-4">
+<div class="container">
+  <div class="row">
+    <h3 class="col-12">Your quotes</h3>
+    <ul ng-repeat="list in user.lists" class="col-12 col-lg-4">
       <span class="btn">{{list.category}}</span>
       <li ng-init="visible = true" ng-hide="!visible" ng-repeat="quote in list.quotes" class="card py-2 px-3 mb-3 text-justify">
         <blockquote>{{quote.quote}}</blockquote>

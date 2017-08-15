@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-  </head>
-  <body ng-app="quotes">
-    <header>
-      <ng-include src="'templates/nav.html'"></ng-include>
-    </header>
-    <quotes></quotes>
+<html lang="en" ng-app="quotes">
+    
+    <ng-include src="'templates/header.html'"></ng-include>
+    
+    <main class="container-fluid">
+      <quotes></quotes>
+    </main>
 
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>

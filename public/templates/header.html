@@ -1,0 +1,34 @@
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+  </head>
+  <body>
+    <header class="container-fluid">
+    	<nav class="container mb-5">
+			<ul class="nav">
+			  <li class="nav-item">
+			  	<a class="nav-link pl-0" href="/">Quotes</a>
+			  </li>
+			  <li ng-show="!user" class="nav-item">
+			  	<a class="nav-link" href="/register">Register</a>
+			  </li>
+			  <li ng-show="!user" class="nav-item">
+			  	<a class="nav-link" href="/login">Login</a>
+			  </li>
+			  <li ng-show="user" class="nav-item">
+			  	<a class="nav-link" href="/my-quotes">My quotes</a>
+			  </li>
+			  <li ng-show="user" class="nav-item float-right">
+			  	<small>logged in as {{user.email}}</small><a class="nav-link" href="/logout">Logout</a>
+			  </li>
+			</ul>
+		</nav>
+		<div ng-show="warning && warning !== ''" class="alert alert-warning" role="alert">
+		  {{warning}}
+		</div>
+	</header>

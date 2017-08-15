@@ -32,12 +32,13 @@ var mid = require('../middleware');
 // GET lists
 	router.get('/user', function(req, res, next){
 		if( req.session && req.session.userId ){
-			var userId = '5992085879cc7d1656ef6a26';
+			var userId = req.session.userId;
 			List.find({user:userId})
 			.exec(function(err,lists){
 				if(err) return next(err);
 				var user = {
 					id: userId,
+					email: req.session.userEmail,
 					lists: lists
 				}
 				res.json(user);
@@ -62,6 +63,7 @@ var mid = require('../middleware');
 	        return next(err);
 	      } else {
 	        req.session.userId = user._id; // creates req.session and gives it userId property
+	        req.session.userEmail = user.email;
 	        return res.redirect('/');
 	      }
 
@@ -75,6 +77,7 @@ var mid = require('../middleware');
 				return res.status(500).json({message:err.message});
 			}
 			req.session.userId = user._id; // creates req.session and gives it userId property
+			req.session.userEmail = user.email;
 			return res.redirect('/');
 		});
 	});

@@ -1,32 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-  </head>
-  <body ng-app="quotes">
-    <ng-include src="'templates/nav.html'"></ng-include>
-    <div id="form" class="row">
-      <form action="/register" method="POST" class="col-12 col-md-6 offset-md-3">
-        <h3>Register</h3>
-        <div class="form-group">
-          <input name="email" type="email" placeholder="email">
+<html lang="en" ng-app="quotes">
+    <ng-include src="'templates/header.html'"></ng-include>
+    <main class="container-fluid">
+      <div class="container">
+        <div id="form" class="row">
+          <h3 class="col-12">Register</h3>
+          <form action="/register" method="POST" class="col-12">
+            <div class="form-group">
+              <input name="email" type="email" placeholder="email">
+            </div>
+            <div class="form-group">
+              <input name="password" type="password" placeholder="password">
+            </div>
+            <div class="form-group">
+              <input name="confirmPassword" type="password" placeholder="confirm password">
+            </div>
+            <div class="form-group">
+              <input type="submit" value="register">
+            </div>
+          </form>
         </div>
-        <div class="form-group">
-          <input name="password" type="password" placeholder="password">
-        </div>
-        <div class="form-group">
-          <input name="confirmPassword" type="password" placeholder="confirm password">
-        </div>
-        <div class="form-group">
-          <input type="submit" value="register">
-        </div>
-      </form>
-    </div>
+      </div><!-- .container -->
+    </main>
 
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
