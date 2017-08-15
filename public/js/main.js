@@ -6,8 +6,8 @@
 			$http.get(url).then(callback);
 		}
 
-		this.getCode = function(callback){
-			$http.get('http://quotes.stormconsultancy.co.uk/random.json').then(callback);
+		this.getUser = function(callback){
+			$http.get('/user').then(callback);
 		}
 	});
 
@@ -18,36 +18,30 @@
 			$scope.user = user.data;
 		});
 
+		$scope.setNewQuote = function(id,quote,author,category){
+			$scope.newQuote = {
+				_quote_id: id,
+				quote: quote,
+				author: author,
+				category: category
+			};
+		}
+
 		$scope.getQuote = function(category){
 			$scope.currentCat = category;
-			
+			var quoteData = [];
 			if( category === 'code' ){
 				quoteService.getQuote('http://quotes.stormconsultancy.co.uk/random.json',function(data){
-					$scope.newQuote = {
-						_quote_id: data.data.id,
-						quote: data.data.quote,
-						author: data.data.author,
-						category: $scope.currentCat
-					};
+					$scope.setNewQuote(data.data.id, data.data.quote, data.data.author,category);
 				});	
 			} else if( category === 'trump' ){
 				quoteService.getQuote('https://api.whatdoestrumpthink.com/api/v1/quotes/random',function(data){
-					$scope.newQuote = {
-						_quote_id: null,
-						quote: data.data.message,
-						author: 'Donald J. Trump',
-						category: $scope.currentCat
-					};
+					$scope.setNewQuote(null, data.data.message, 'Donald J. Trump',category);
 				});
 			} else if( category === 'misc' ){
 				quoteService.getQuote('http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',function(data){
 					var strippedQuote = data.data[0].content.replace(/<p>|<\/p>/gi,'');
-					$scope.newQuote = {
-						_quote_id: data.data[0].ID,
-						quote: strippedQuote,
-						author: data.data[0].title,
-						category: $scope.currentCat
-					};
+					$scope.setNewQuote(data.data[0].ID, strippedQuote, data.data[0].title,category);
 				});
 			}
 		}
