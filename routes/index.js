@@ -123,9 +123,9 @@ var mid = require('../middleware');
 		List.findOne({_id:req.body._id})
 		.exec(function(err,list){
 			if(err) return next(err);
-			list.update({$set: { quotes: req.body.quotes }},function(err,list){
+			list.update({$set: { quotes: req.body.quotes }},function(err){
 				if(err) return next(err);
-				res.send(list);
+				res.json(list);
 			});
 		});
 	});

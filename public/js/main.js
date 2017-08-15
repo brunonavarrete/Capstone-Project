@@ -102,13 +102,46 @@
 
 		$scope.updateQuote = function(quote){
 			if( $scope.user ){
-				quote = $scope.newQuote;
-				$http.post('/quote', quote);
-				$scope.warning = '';
-				$scope.saved = true;
-				quoteService.getUser(function(user){
-					$scope.user = user.data;
-				});
+				if( !$scope.saved ){
+					quote = $scope.newQuote;
+					$http.post('/quote', quote);
+					$scope.warning = '';
+					$scope.saved = true;
+					quoteService.getUser(function(user){
+						$scope.user = user.data;
+					});
+				} else {
+					var category = quote.category;
+					var quoteText = quote.quote;
+					var quoteId = quote._id;
+					var userLists = $scope.user.lists;
+					for (var i = 0; i < userLists.length; i++) {
+						if( userLists[i].category === category ){
+							var currentList = i;
+							var quoteArray = userLists[currentList].quotes;
+							var newQuoteArray = quoteArray.filter(function(quote){
+								if( category === 'trump' ){
+									if( quote.quote !== quoteText ){
+										return quote;
+									}
+								} else {
+									if( quote._quote_id !== quoteId ){
+										return quote;
+									}
+								}
+							});
+
+							var updatedList = {
+								_id: userLists[currentList]._id,
+								quotes: newQuoteArray
+							}
+
+							$scope.user.lists[currentList].quotes = newQuoteArray;
+							$scope.saved = false;
+							return $http.put('/lists', updatedList);
+						}
+					}
+				}
 			} else {
 				$scope.warning = 'You must be logged in to save a quote';
 			}
@@ -121,10 +154,34 @@
 		});
 
 		$scope.removeQuote = function(category,quoteId,quoteText){
-			quoteService.removeQuote( $scope.user.lists, category, quoteId, quoteText, function(){
-				console.log('removed!');
-			});
-		};
+			var userLists = $scope.user.lists;
+			for (var i = 0; i < userLists.length; i++) {
+				if( userLists[i].category === category ){
+					var currentList = i;
+					var quoteArray = userLists[currentList].quotes;
+					var newQuoteArray = quoteArray.filter(function(quote){
+						if( category === 'trump' ){
+							if( quote.quote !== quoteText ){
+								return quote;
+							}
+						} else {
+							if( quote._quote_id !== quoteId ){
+								return quote;
+							}
+						}
+					});
+
+					var updatedList = {
+						_id: userLists[currentList]._id,
+						quotes: newQuoteArray
+					}
+
+					$scope.user.lists[currentList].quotes = newQuoteArray;
+
+					return $http.put('/lists', updatedList);
+				}
+			}
+		}
 
 	});
 
