@@ -14,16 +14,27 @@
 			$http.get('http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1').then(callback);
 		}
 
+		this.getUser = function(callback){
+			$http.get('/user').then(callback);
+		}
+
 	});
 
 	module.controller('quotesCtrl',function($scope,$http,quoteService){
 		$scope.newQuote = '';
+		
+		quoteService.getUser(function(user){
+			$scope.user = user.data;
+		});
+
 		$scope.getCode = function(){
 			quoteService.getCode(function(data){
 				$scope.currentCat = 'code';
 				$scope.newQuote = {
+					_quote_id: data.data.id,
 					quote: data.data.quote,
-					author: data.data.author
+					author: data.data.author,
+					category: $scope.currentCat
 				};
 			});
 		}
@@ -32,19 +43,24 @@
 			quoteService.getTrump(function(data){
 				$scope.currentCat = 'trump';
 				$scope.newQuote = {
+					_quote_id: null,
 					quote: data.data.message,
-					author: 'Donald J. Trump'
+					author: 'Donald J. Trump',
+					category: $scope.currentCat
 				};
 			});
 		}
 
 		$scope.getMisc = function(){
 			quoteService.getMisc(function(data){
+				console.log(data);
 				$scope.currentCat = 'misc';
 				var strippedQuote = data.data[0].content.replace(/<p>|<\/p>/gi,'');
 				$scope.newQuote = {
+					_quote_id: data.data[0].ID,
 					quote: strippedQuote,
-					author: data.data[0].title
+					author: data.data[0].title,
+					category: $scope.currentCat
 				};
 			});
 		}
@@ -58,6 +74,12 @@
 		}
 	});
 
+	module.controller('listsCtrl',function($scope,$http,quoteService){
+		quoteService.getUser(function(user){
+			$scope.user = user.data;
+		});
+	});
+
 	module.directive('quotes',function(){
 		return {
 			templateUrl: 'templates/quotes.html',
@@ -66,11 +88,11 @@
 		  }
 	});
 
-	module.directive('register',function(){
+	module.directive('lists',function(){
 		return {
-			templateUrl: 'templates/register.html',
+			templateUrl: 'templates/lists.html',
 			replace: true,
-			controller: 'quotesCtrl'
+			controller: 'listsCtrl'
 		  }
 	});
 

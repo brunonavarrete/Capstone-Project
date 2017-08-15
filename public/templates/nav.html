@@ -1,0 +1,19 @@
+<nav class="mb-5">
+	<ul class="nav">
+	  <li class="nav-item">
+	  	<a class="nav-link" href="/">Quotes</a>
+	  </li>
+	  <li ng-show="!user" class="nav-item">
+	  	<a class="nav-link" href="/register">Register</a>
+	  </li>
+	  <li ng-show="!user" class="nav-item">
+	  	<a class="nav-link" href="/login">Login</a>
+	  </li>
+	  <li ng-show="user" class="nav-item">
+	  	<a class="nav-link" href="/my-quotes">My quotes</a>
+	  </li>
+	  <li ng-show="user" class="nav-item">
+	  	<a class="nav-link" href="/logout">Logout</a>
+	  </li>
+	</ul>
+</nav>

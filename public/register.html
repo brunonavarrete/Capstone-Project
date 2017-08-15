@@ -8,8 +8,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
   </head>
-  <body>
-    
+  <body ng-app="quotes">
+    <ng-include src="'templates/nav.html'"></ng-include>
     <div id="form" class="row">
       <form action="/register" method="POST" class="col-12 col-md-6 offset-md-3">
         <h3>Register</h3>
@@ -28,7 +28,7 @@
       </form>
     </div>
 
-    <!--script type="text/javascript" src="js/angular.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script-->
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
   </body>
 </html>
