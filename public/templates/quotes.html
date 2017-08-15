@@ -1,0 +1,24 @@
+<div>
+  <div class="row">
+    <div id="quote" class="col-12 col-md-6 offset-md-3">
+      <blockquote class="px-3">
+        <form ng-submit="saveQuote(newQuote)">
+          <p class="text-justify">{{newQuote.quote}}
+            <br><button ng-hide="newQuote == ''" type="submit" class="btn btn-secondary">Star</button>
+          </p>
+          <input type="hidden" name="quote" value="{{newQuote.quote}}">
+          <input type="hidden" name="author" value="{{newQuote.author}}">
+          <input type="hidden" name="id" value="{{newQuote.id}}">
+        </form>
+        <br><em class="float-right">{{newQuote.author}}</em>
+      </blockquote>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-6 offset-md-3 text-center">
+      <button class="btn btn-primary mx-2" ng-click="getTrump()">Trump it!</button>
+      <button class="btn btn-success mx-2" ng-click="getCode()">Code</button>
+      <button class="btn btn-warning mx-2" ng-click="getMisc()">Misc</button>
+    </div>
+  </div>
+</div>

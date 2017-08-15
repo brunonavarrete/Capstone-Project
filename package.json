@@ -1,0 +1,24 @@
+{
+  "name": "CodeVSTrump",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "connect-mongo": "^1.3.2",
+    "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "mongoose": "^4.11.7",
+    "mongoose-validate": "0.0.5"
+  },
+  "devDependencies": {
+    "morgan": "^1.8.2"
+  }
+}
