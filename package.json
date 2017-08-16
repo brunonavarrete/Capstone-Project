@@ -11,7 +11,7 @@
     "node": "6.9.2"
   },
   "keywords": ["quote","trump","code","inspiration","MEAN Stack"],
-  "author": "brunouno",
+  "author": "brunonavarrete",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.2",
