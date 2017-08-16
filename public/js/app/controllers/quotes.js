@@ -40,7 +40,7 @@
 
 		$scope.getQuote = function(category){
 			if( category === 'code' ){
-				quoteService.getQuote('http://quotes.stormconsultancy.co.uk/random.json',function(data){
+				quoteService.getQuote('http://quotes.stormconsultancy.co.uk/random.json/',function(data){
 					$scope.setNewQuote(data.data.id, data.data.quote, data.data.author, category);
 				});
 			} else if( category === 'trump' ){
