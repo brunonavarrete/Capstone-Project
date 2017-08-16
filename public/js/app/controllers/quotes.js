@@ -48,7 +48,7 @@
 					$scope.setNewQuote(null, data.data.message, 'Donald J. Trump', category);
 				});
 			} else if( category === 'misc' ){
-				quoteService.getQuote('http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',function(data){
+				quoteService.getQuote('https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',function(data){
 					$scope.setNewQuote(data.data[0].ID, data.data[0].content, data.data[0].title, category);
 				});
 			}
