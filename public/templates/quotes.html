@@ -5,7 +5,7 @@
         <u>What kind of quote would you like?</u>
       </blockquote>
       <blockquote ng-hide="newQuote == ''" class="text-center">
-        "{{newQuote.quote}}"
+        <span ng-bind-html="htmlQuote">"{{htmlQuote}}"</span>
         <i ng-click="updateQuote(newQuote)" class="fa" ng-class="{'fa-star':saved,'fa-star-o':!saved}"></i>
       </blockquote>
       <em ng-hide="newQuote == ''" class="float-right">&mdash; {{newQuote.author}}</em>

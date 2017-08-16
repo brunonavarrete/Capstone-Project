@@ -7,7 +7,6 @@ var List = require('../models/list');
 var path = require('path');
 var mid = require('../middleware');
 
-
 // GET root
 	router.get('/',function(req,res){
 		res.send('../public/index.html');
@@ -56,15 +55,14 @@ var mid = require('../middleware');
 
 // POST register, login
 	router.post('/login',function(req,res,next){
+		console.log(req.body);
 		User.authenticate(req.body.email,req.body.password,function(err, user){
 	      if( err || !user ){
-	        var err = new Error('Wrong email or password');
-	        err.status = 401;
-	        return next(err);
+	        return res.status(401).send({message:'Wrong email or password'});
 	      } else {
 	        req.session.userId = user._id; // creates req.session and gives it userId property
 	        req.session.userEmail = user.email;
-	        return res.redirect('/');
+	        return res.status(200).send({message:'success'});
 	      }
 
 	    });
@@ -78,7 +76,7 @@ var mid = require('../middleware');
 			}
 			req.session.userId = user._id; // creates req.session and gives it userId property
 			req.session.userEmail = user.email;
-			return res.redirect('/');
+			return res.status(200).send({message:'success'});
 		});
 	});
 

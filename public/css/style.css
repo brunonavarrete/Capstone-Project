@@ -41,6 +41,10 @@ blockquote {
 	text-shadow:2px 2px 5px #000;
 }
 
+blockquote p:nth-last-child(1) {
+	display:inline;
+}
+
 .btn {
 	cursor:pointer;
 	border-width:0;
@@ -89,6 +93,15 @@ blockquote {
 
 #buttons .btn {
 	width:130px;
+}
+
+.card {
+	box-shadow:1px 1px 5px #000;
+	transition:box-shadow 0.1s;
+}
+
+.card:hover {
+	box-shadow:2px 5px 10px rgba(0,0,0,0.5);
 }
 
 .card,.card blockquote {

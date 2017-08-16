@@ -40,7 +40,7 @@
 
 	});
 
-	module.controller('quotesCtrl',function($scope,$http,quoteService){
+	module.controller('quoteCtrl',function($scope,$http,$sce,quoteService){
 		$scope.newQuote = '';
 		
 		quoteService.getUser(function(user){
@@ -48,12 +48,14 @@
 		});
 
 		$scope.setNewQuote = function(id,quote,author,category){
-			$scope.newQuote = {
+			var newQuote = {
 				_quote_id: id,
-				quote: quote,
+				quote:quote,
 				author: author,
 				category: category
 			};
+			$scope.htmlQuote = $sce.trustAsHtml(newQuote.quote),
+			$scope.newQuote = newQuote;
 		}
 
 		$scope.checkForQuote = function(id,quote,category){
@@ -81,6 +83,7 @@
 		}
 
 		$scope.getQuote = function(category){
+			$scope.saved = false;
 			if( category === 'code' ){
 				quoteService.getQuote('http://quotes.stormconsultancy.co.uk/random.json',function(data){
 					$scope.setNewQuote(data.data.id, data.data.quote, data.data.author,category);
@@ -93,9 +96,8 @@
 				});
 			} else if( category === 'misc' ){
 				quoteService.getQuote('http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',function(data){
-					var strippedQuote = data.data[0].content.replace(/<p>|<\/p>/gi,'');
-					$scope.setNewQuote(data.data[0].ID, strippedQuote, data.data[0].title,category);
-					$scope.checkForQuote(data.data[0].ID, strippedQuote, category);
+					$scope.setNewQuote(data.data[0].ID, data.data[0].content, data.data[0].title,category);
+					$scope.checkForQuote(data.data[0].ID, data.data[0].content, category);
 				});
 			}
 		}
@@ -147,10 +149,12 @@
 		}
 	});
 
-	module.controller('listsCtrl',function($scope,$http,quoteService){
+	module.controller('listCtrl',function($scope,$http,$sce,quoteService){
 		quoteService.getUser(function(user){
 			$scope.user = user.data;
 		});
+
+		$scope.trustAsHtml = $sce.trustAsHtml;
 
 		$scope.removeQuote = function(category,quoteId,quoteText){
 			var userLists = $scope.user.lists;
@@ -184,11 +188,45 @@
 
 	});
 
+	module.controller('formCtrl',function($scope,$http,$window){
+		$scope.submitLogin = function(data){
+			$http.post('/login',{email:data.email.$viewValue,password:data.password.$viewValue})
+			.then(
+				function(response){ // success
+					if(response.status === 200){
+						$window.location.href = '/';
+					}
+				},
+				function(err){ // error
+					$scope.warning = err.data.message;
+				}
+			);
+		}
+
+		$scope.submitRegister = function(data){
+			if( data.password.$viewValue !== data.confirmPassword.$viewValue ){
+				$scope.warning = 'Password\'s don\'t match';
+			} else {
+				$http.post('/register',{email:data.email.$viewValue,password:data.password.$viewValue})
+				.then(
+					function(response){ // success
+						if(response.status === 200){
+							$window.location.href = '/';
+						}
+					},
+					function(err){ // error
+						$scope.warning = err.data.message;
+					}
+				);
+			}
+		}
+	});
+
 	module.directive('quotes',function(){
 		return {
 			templateUrl: 'templates/quotes.html',
 			replace: true,
-			controller: 'quotesCtrl'
+			controller: 'quoteCtrl'
 		  }
 	});
 
@@ -196,7 +234,7 @@
 		return {
 			templateUrl: 'templates/lists.html',
 			replace: true,
-			controller: 'listsCtrl'
+			controller: 'listCtrl'
 		  }
 	});
 

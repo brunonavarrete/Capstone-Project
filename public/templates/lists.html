@@ -1,10 +1,11 @@
 <div class="container">
   <div id="lists" class="row">
     <h3 class="col-12">Your quotes</h3>
-    <ul ng-repeat="list in user.lists" class="col-12 col-lg-4">
-      <h5>{{list.category}}</h5>
+    <p ng-show="!user.lists.length > 0" class="col-12">You don't have saved quotes yet :(</p>
+    <ul ng-show="user.lists.length > 0" ng-repeat="list in user.lists" class="col-12 col-lg-4">
+      <h5 class="my-4 text-capitalize">{{list.category}}</h5>
       <li ng-init="visible = true" ng-hide="!visible" ng-repeat="quote in list.quotes" class="card py-2 px-3 mb-3 text-justify">
-        <blockquote>{{quote.quote}}</blockquote>
+        <blockquote ng-bind-html="trustAsHtml(quote.quote)">{{quote.quote}}</blockquote>
         <em class="text-right">
           <i ng-click="visible = false; removeQuote(list.category,quote._quote_id,quote.quote)" class="fa fa-trash float-left"></i>
           &mdash; {{quote.author}}
