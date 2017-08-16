@@ -29,11 +29,10 @@ var MongoStore = require('connect-mongo')(session); // connect-mongo will access
     })
   }));
 
-//
+// open db connection
   db.on('open',function(){
       console.log('connection opened');
   });
-
 
 // router
   app.use('/',router);
@@ -48,11 +47,10 @@ var MongoStore = require('connect-mongo')(session); // connect-mongo will access
 // Express's global error handler
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    //console.log('error!');
     res.send(err);
   });
 
-
-app.listen(3000,function(){
-	console.log('listening on port 3000');
-});
+  var port = process.env.PORT || 3000;
+  app.listen(port,function(){
+  	console.log('listening on port '+port);
+  });
