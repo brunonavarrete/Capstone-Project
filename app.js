@@ -10,48 +10,54 @@ var MongoStore = require('connect-mongo')(session); // connect-mongo will access
 // middleware
 	app.use(logger('dev'));
 	app.use(bodyParser.urlencoded({extended: true}));
-  app.use(bodyParser.json());
+	app.use(bodyParser.json());
 
 // static
 	app.use(express.static('public'));
 
 // database
-  var mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/quotes';
-  mongoose.connect( mongoUri );
-  var db = mongoose.connection;
+	var mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/quotes';
+	mongoose.connect( mongoUri );
+	var db = mongoose.connection;
 
 // session
-  app.use(session({
-    secret: 'Ohana means family',
-    resave: true,
-    saveUninitialized: false,
-    store: new MongoStore({
-      mongooseConnection: db // mongoose.connection
-    })
-  }));
+	app.use(session({
+		secret: 'Ohana means family',
+		resave: true,
+		saveUninitialized: false,
+		store: new MongoStore({
+			mongooseConnection: db // mongoose.connection
+		})
+	}));
 
 // open db connection
-  db.on('open',function(){
-      console.log('connection opened');
-  });
+	db.on('open',function(){
+			console.log('connection opened');
+	});
+
+// CORS
+	app.use(function(req,res,next){
+		res.header("Access-Control-Allow-Origin", "*");
+		next();
+	});
 
 // router
-  app.use('/',router);
+	app.use('/',router);
 
 // catch 404 and forward to global error handler
-  app.use(function(req, res, next) {
-    var err = new Error('File Not Found');
-    err.status = 404;
-    next(err);
-  });
+	app.use(function(req, res, next) {
+		var err = new Error('File Not Found');
+		err.status = 404;
+		next(err);
+	});
 
 // Express's global error handler
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.send(err);
-  });
+	app.use(function(err, req, res, next) {
+		res.status(err.status || 500);
+		res.send(err);
+	});
 
-  var port = process.env.PORT || 3000;
-  app.listen(port,function(){
-  	console.log('listening on port '+port);
-  });
+	var port = process.env.PORT || 3000;
+	app.listen(port,function(){
+		console.log('listening on port '+port);
+	});
