@@ -16,7 +16,8 @@ var MongoStore = require('connect-mongo')(session); // connect-mongo will access
 	app.use(express.static('public'));
 
 // database
-  mongoose.connect('mongodb://localhost:27017/quotes');
+  var mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/quotes';
+  mongoose.connect( mongoUri );
   var db = mongoose.connection;
 
 // session
