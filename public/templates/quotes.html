@@ -2,17 +2,17 @@
   <div class="row">
     <div id="quote" class="col-12 col-md-8 offset-md-2">
       <blockquote ng-hide="newQuote !== ''"  class="text-center text-underline">
-        <u>What kind of quote would you like?</u>
+        What kind of quote would you like?
       </blockquote>
       <blockquote ng-hide="newQuote == ''" class="text-center">
         <span ng-bind-html="trustAsHtml(newQuote.quote)">"{{newQuote.quote}}"</span>
         <i ng-click="updateQuote(newQuote)" class="fa" ng-class="{'fa-star':saved,'fa-star-o':!saved}"></i>
       </blockquote>
-      <em ng-hide="newQuote == ''" class="float-right">&mdash; {{newQuote.author}}</em>
+      <span ng-hide="newQuote == ''" class="float-right">&mdash; {{newQuote.author}}</span>
     </div>
   </div><!-- .row -->
   <div class="row">
-    <div id="buttons" class="py-3 col-12 text-center">
+    <div id="buttons" class="py-3 col-12 text-center" ng-class="{'fixed':newQuote!==''}">
       <small class="text-center" ng-show="fetching">Fetching...</small>
       <button class="btn btn-outline-success mx-2" title="https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies&count=1" ng-click="getQuote('movies');" ng-show="!fetching">Movies</button>
       <button class="btn btn-outline-secondary mx-2" title="https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1" ng-click="getQuote('misc');" ng-show="!fetching">Misc / Design</button>
