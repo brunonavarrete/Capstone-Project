@@ -3,14 +3,14 @@
 	module.service('quoteService',function($http){
 		this.getQuote = function(url,callback){
 			$http.get(url).then(callback);
-		}
+		};
 
 		this.getUser = function(callback){
 			$http.get('/user').then(callback);
-		}
+		};
 
-		this.removeQuote = function(lists,category,quoteId,quoteText,callback){
-			var userLists = lists;
+		this.removeQuote = function(scope,category,quoteId,quoteText){
+			var userLists = scope.user.lists;
 			for (var i = 0; i < userLists.length; i++) {
 				if( userLists[i].category === category ){
 					var currentList = i;
@@ -30,8 +30,9 @@
 					var updatedList = {
 						_id: userLists[currentList]._id,
 						quotes: newQuoteArray
-					}
+					};
 
+					scope.saved = false;
 					return $http.put('/lists', updatedList);
 				}
 			}

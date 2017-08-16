@@ -5,7 +5,7 @@
 			templateUrl: 'templates/quotes.html',
 			replace: true,
 			controller: 'quoteCtrl'
-		  }
+		};
 	});
 
 	module.directive('lists',function(){
@@ -13,6 +13,6 @@
 			templateUrl: 'templates/lists.html',
 			replace: true,
 			controller: 'listCtrl'
-		  }
+		};
 	});
 }());

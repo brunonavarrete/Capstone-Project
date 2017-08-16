@@ -5,7 +5,7 @@
         <u>What kind of quote would you like?</u>
       </blockquote>
       <blockquote ng-hide="newQuote == ''" class="text-center">
-        <span ng-bind-html="htmlQuote">"{{htmlQuote}}"</span>
+        <span ng-bind-html="trustAsHtml(newQuote.quote)">"{{newQuote.quote}}"</span>
         <i ng-click="updateQuote(newQuote)" class="fa" ng-class="{'fa-star':saved,'fa-star-o':!saved}"></i>
       </blockquote>
       <em ng-hide="newQuote == ''" class="float-right">&mdash; {{newQuote.author}}</em>
@@ -13,9 +13,9 @@
   </div><!-- .row -->
   <div class="row">
     <div id="buttons" class="py-3 col-12 text-center">
-      <button class="btn btn-outline-success mx-2" ng-click="getQuote('code')">Code</button>
-      <button class="btn btn-outline-secondary mx-2" ng-click="getQuote('misc')">Misc / Design</button>
-      <button class="btn btn-outline-danger mx-2" ng-click="getQuote('trump')">Trump it!</button>
+      <button class="btn btn-outline-success mx-2" ng-click="getQuote('code');">Code</button>
+      <button class="btn btn-outline-secondary mx-2" ng-click="getQuote('misc');">Misc / Design</button>
+      <button class="btn btn-outline-danger mx-2" ng-click="getQuote('trump');">Trump it!</button>
     </div>
   </div><!-- .row -->
 </div><!-- .container -->

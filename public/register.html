@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="quotes">
-    <head>
-      <!-- Required meta tags -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<title>Quotespiration - Register</title>
+		
+		<!-- meta -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-      <!-- Bootstrap CSS -->
-      <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Raleway:400,400i" rel="stylesheet">
-      <link rel="stylesheet" href="css/bootstrap.min.css">
-      <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="css/style.css">
-  </head>
-  <body ng-controller="formCtrl">
-    <ng-include src="'templates/header.html'"></ng-include>
-    <main class="container-fluid">
-      <div class="container">
-        <div id="form" class="row">
-          <h3 class="col-12">Register</h3>
-          <form name="register" ng-submit="submitRegister(register)" class="col-12 col-md-5 col-lg-3">
-            <div class="form-group">
-              <input class="form-control" ng-model="email" name="email" type="email" placeholder="email" required>
-            </div>
-            <div class="form-group">
-              <input class="form-control" ng-model="password" name="password" type="password" placeholder="password" required>
-            </div>
-            <div class="form-group">
-              <input class="form-control" ng-model="confirmPassword" name="confirmPassword" type="password" placeholder="confirm password" required>
-            </div>
-            <div class="form-group">
-              <input class="btn btn-outline-secondary float-right" type="submit" value="Go!">
-            </div>
-          </form>
-        </div>
-      </div><!-- .container -->
-    </main>
+		<!-- css -->
+		<link href="https://fonts.googleapis.com/css?family=Great+Vibes|Raleway:400,400i" rel="stylesheet">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body ng-controller="formCtrl">
+		<ng-include src="'templates/header.html'"></ng-include>
+		<main class="container-fluid">
+			<div class="container">
+				<div id="form" class="row">
+					<h3 class="col-12">Register</h3>
+					<form name="register" ng-submit="submit(register)" class="col-12 col-md-5 col-lg-3">
+						<div class="form-group">
+							<input class="form-control" ng-model="email" name="email" type="email" placeholder="email" required>
+						</div>
+						<div class="form-group">
+							<input class="form-control" ng-model="password" name="password" type="password" placeholder="password" required>
+						</div>
+						<div class="form-group">
+							<input class="form-control" ng-model="confirmPassword" name="confirmPassword" type="password" placeholder="confirm password" required>
+						</div>
+						<div class="form-group">
+							<input class="btn btn-outline-secondary float-right" type="submit" value="Go!">
+						</div>
+					</form>
+				</div>
+			</div><!-- .container -->
+		</main>
 
-    <script type="text/javascript" src="js/angular.min.js"></script>
-    <script type="text/javascript" src="js/app/main.js"></script>
-    <script type="text/javascript" src="js/app/services/quotes.js"></script>
-    <script type="text/javascript" src="js/app/controllers/main.js"></script>
-    <script type="text/javascript" src="js/app/directives/main.js"></script>
-  </body>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/app/main.js"></script>
+		<script type="text/javascript" src="js/app/services/quotes.js"></script>
+		<script type="text/javascript" src="js/app/controllers/forms.js"></script>
+		<script type="text/javascript" src="js/app/directives/main.js"></script>
+	</body>
 </html>
