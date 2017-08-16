@@ -10,7 +10,8 @@
 
 		$scope.setNewQuote = function(id,quote,author,category){
 			$scope.newQuote = {_quote_id: id, quote:quote, author: author, category: category};
-			$scope.checkForQuote(id, quote, category);
+			($scope.user) ? $scope.checkForQuote(id, quote, category) : 0;
+			$scope.fetching = false;
 		};
 
 		$scope.checkForQuote = function(id,quote,category){
@@ -20,7 +21,7 @@
 				if( userLists[i].category === category ){
 					var currentList = i;
 					for (var i2 = 0; i2 < userLists[currentList].quotes.length; i2++) {
-						if( category === 'trump' ){
+						if( category === 'trump' || category === 'movies' ){
 							if( userLists[currentList].quotes[i2].quote === quote ){
 								return $scope.saved = true;
 							} else {
@@ -39,16 +40,22 @@
 		};
 
 		$scope.getQuote = function(category){
-			if( category === 'code' ){
-				quoteService.getQuote('http://quotes.stormconsultancy.co.uk/random.json/',function(data){
-					$scope.setNewQuote(data.data.id, data.data.quote, data.data.author, category);
+			$scope.fetching = true;
+			if( category === 'movies' ){
+				var config = {
+					method: 'GET',
+					url: 'https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies&count=1',
+					headers: {'X-Mashape-Authorization':'DHAHiCdCHUmshmR5MtOO3LPsXb7sp1lEbtYjsnudCRSEgzhfC3'}
+				}
+				quoteService.getQuote(config,function(data){
+					$scope.setNewQuote(null, data.data.quote, data.data.author, category);
 				});
 			} else if( category === 'trump' ){
-				quoteService.getQuote('https://api.whatdoestrumpthink.com/api/v1/quotes/random',function(data){
+				quoteService.getQuote({url:'https://api.whatdoestrumpthink.com/api/v1/quotes/random'},function(data){
 					$scope.setNewQuote(null, data.data.message, 'Donald J. Trump', category);
 				});
 			} else if( category === 'misc' ){
-				quoteService.getQuote('https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',function(data){
+				quoteService.getQuote({url:'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1'},function(data){
 					$scope.setNewQuote(data.data[0].ID, data.data[0].content, data.data[0].title, category);
 				});
 			}

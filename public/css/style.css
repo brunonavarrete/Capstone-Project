@@ -19,6 +19,7 @@ header .alert {
     width: 100%;
     border-radius: 0;
     border: 0;
+    background-color: #fff;
 }
 
 .nav .float-right {
@@ -91,7 +92,7 @@ blockquote p:nth-last-child(1) {
 	background-color:#4a5899;
 }
 
-#buttons .btn {
+.btn {
 	width:130px;
 }
 

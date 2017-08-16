@@ -13,9 +13,10 @@
   </div><!-- .row -->
   <div class="row">
     <div id="buttons" class="py-3 col-12 text-center">
-      <button class="btn btn-outline-success mx-2" ng-click="getQuote('code');">Code</button>
-      <button class="btn btn-outline-secondary mx-2" ng-click="getQuote('misc');">Misc / Design</button>
-      <button class="btn btn-outline-danger mx-2" ng-click="getQuote('trump');">Trump it!</button>
+      <small class="text-center" ng-show="fetching">Fetching...</small>
+      <button class="btn btn-outline-success mx-2" title="https://andruxnet-random-famous-quotes.p.mashape.com/?cat=movies&count=1" ng-click="getQuote('movies');" ng-show="!fetching">Movies</button>
+      <button class="btn btn-outline-secondary mx-2" title="https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1" ng-click="getQuote('misc');" ng-show="!fetching">Misc / Design</button>
+      <button class="btn btn-outline-danger mx-2" title="https://api.whatdoestrumpthink.com/api/v1/quotes/random" ng-click="getQuote('trump');" ng-show="!fetching">Trump it!</button>
     </div>
   </div><!-- .row -->
 </div><!-- .container -->

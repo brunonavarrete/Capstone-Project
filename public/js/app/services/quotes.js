@@ -1,8 +1,8 @@
 !(function(){
 	var module = angular.module('quotes');
 	module.service('quoteService',function($http){
-		this.getQuote = function(url,callback){
-			$http.get(url).then(callback);
+		this.getQuote = function(config,callback){
+			$http(config).then(callback);
 		};
 
 		this.getUser = function(callback){
@@ -16,7 +16,7 @@
 					var currentList = i;
 					var quoteArray = userLists[currentList].quotes;
 					var newQuoteArray = quoteArray.filter(function(quote){
-						if( category === 'trump' ){
+						if( category === 'trump' || category === 'movies' ){
 							if( quote.quote !== quoteText ){
 								return quote;
 							}
