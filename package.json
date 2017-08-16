@@ -1,13 +1,17 @@
 {
-  "name": "CodeVSTrump",
+  "name": "Quotespiration",
   "version": "1.0.0",
-  "description": "",
+  "description": "A small MEAN Stack, quote getter app",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
-  "keywords": [],
-  "author": "",
+  "engines": {
+    "node": "6.9.2"
+  },
+  "keywords": ["quote","trump","code","inspiration","MEAN Stack"],
+  "author": "brunouno",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -16,9 +20,7 @@
     "express": "^4.15.4",
     "express-session": "^1.15.5",
     "mongoose": "^4.11.7",
-    "mongoose-validate": "0.0.5"
-  },
-  "devDependencies": {
+    "mongoose-validate": "0.0.5",
     "morgan": "^1.8.2"
   }
 }
